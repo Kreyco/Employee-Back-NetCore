@@ -14,19 +14,19 @@ namespace WebApplication2.Factories
 
     public static class FactoryEmployee
     {
-        public static Nullable<double> CalculateAnnualSalary(ContractType contractTypeName, double HourlySalary, double MonthlySalary)
+        public static double CalculateAnnualSalary(String contractTypeName, double HourlySalary, double MonthlySalary)
         {
-            if (contractTypeName == ContractType.HourlySalaryEmployee)
+            if (contractTypeName == ContractType.HourlySalaryEmployee.ToString())
             {
                 return new EmployeeHourlySalary().CalculateAnnualSalary(HourlySalary, MonthlySalary);
             }
-            else if (contractTypeName == ContractType.MonthlySalaryEmployee)
+            else if (contractTypeName == ContractType.MonthlySalaryEmployee.ToString())
             {
                 return new EmployeeMonthlySalary().CalculateAnnualSalary(HourlySalary, MonthlySalary);
             }
             else
             {
-                return null;
+                return new EmployeeMonthlySalary().CalculateAnnualSalary(HourlySalary, MonthlySalary);
             }
         }
     }

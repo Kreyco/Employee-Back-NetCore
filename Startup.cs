@@ -40,13 +40,6 @@ namespace WebApplication2
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            //app.UseCors(options =>
-            //    //options.WithOrigins("http://127.0.0.1:8080", "http://127.0.0.1:8081")
-            //    options.WithOrigins("http://localhost:8081")
-            //    .AllowAnyMethod()
-            //    .AllowAnyHeader()
-            //);
-
             app.UseCors("AllowSpecificOrigin");
 
             if (env.IsDevelopment())

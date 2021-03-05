@@ -17,11 +17,14 @@ namespace WebApplication2.Models
 		public int RoleId { get; set; }
 		public String RoleName { get; set; }
 		public String RoleDescription { get; set; }
+		private String hourlySalary;
 		[DisplayName("HourlySalary")]
-		public String HourlySalary { get; set; }
+		public double HourlySalary { get => Double.Parse(hourlySalary); set => hourlySalary = value.ToString(); }
+		private String monthlySalary;
 		[DisplayName("MonthlySalary")]
-		public String MonthlySalary { get; set; }
-		public double CalculatedAnnualSalary { get => CalculateAnnualSalary(double.Parse(HourlySalary), double.Parse(MonthlySalary)); set { this.CalculatedAnnualSalary = value; } }
+		public double MonthlySalary { get => Double.Parse(monthlySalary); set => monthlySalary = value.ToString(); }
+		private double calculatedAnnualSalary;
+		public double CalculatedAnnualSalary { get; set; }
 
         public virtual double CalculateAnnualSalary(double HourlySalary, double MonthlySalary)
 		{

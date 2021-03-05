@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using WebApplication2.Repository;
 using WebApplication2.Models;
 using Microsoft.AspNetCore.Http;
+using WebApplication2.Factories;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -29,10 +30,16 @@ namespace WebApplication2.Controllers
 
                 List<Employee> employees = response.Content.ReadAsAsync<List<Employee>>().Result;
 
+                foreach (var employee in employees)
+                {
+                    employee.CalculatedAnnualSalary = FactoryEmployee.CalculateAnnualSalary(employee.ContractTypeName, employee.HourlySalary, employee.MonthlySalary);
+                }
+
                 return employees;
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                Console.WriteLine("Error {0}", e.GetType());
                 throw;
             }
         }
@@ -49,7 +56,7 @@ namespace WebApplication2.Controllers
 
                 List<Employee> employees = response.Content.ReadAsAsync<List<Employee>>().Result;
                 Employee employee = employees.Find(x => x.Id == id);
-                employee.CalculatedAnnualSalary = employee.CalculateAnnualSalary(double.Parse(employee.HourlySalary), double.Parse(employee.MonthlySalary));
+                employee.CalculatedAnnualSalary = FactoryEmployee.CalculateAnnualSalary(employee.ContractTypeName, employee.HourlySalary, employee.MonthlySalary);
                 List<Employee> result = new List<Employee>
                 {
                     employee
@@ -57,8 +64,9 @@ namespace WebApplication2.Controllers
 
                 return result;
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                Console.WriteLine("Error {0}", e.GetType());
                 throw;
             }
         }
